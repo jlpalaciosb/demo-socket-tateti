@@ -1,0 +1,9 @@
+/* estilos propios de la aplicacion */
+
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.c-pointer {
+    cursor: pointer;
+}
