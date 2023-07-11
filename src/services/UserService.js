@@ -1,4 +1,5 @@
-const db = require('../bd')
+const db = require('../mongodb');
+const {getRedisClient} = require('../redisdb');
 
 // List of positive adjectives
 const adjectives = [
@@ -98,10 +99,23 @@ async function insertSession(session) {
     return true;
 }
 
+/**
+ * test redis db
+ * @param {String} username
+ * @returns {Number} cantidad de visitas
+ */
+async function getUserVisitCount(username) {
+    const redisClient = await getRedisClient();
+    const c = await redisClient.get(`vc:${username}`) || 1;
+    await redisClient.set(`vc:${username}`, Number(c) + 1);
+    return c;
+}
+
 module.exports = {
     newUsername,
     findUser,
     findUserBySession,
     insertUser,
     insertSession,
+    getUserVisitCount,
 }
