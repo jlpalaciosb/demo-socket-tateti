@@ -4,19 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Demo WS</title>
+    <title>Demo WS - Play</title>
 
     <%- include('estilos') %>
+    <link rel="stylesheet" href="/dist/gameplay.css">
 </head>
 
 <body data-bs-theme="dark">
     <div class="container">
         <%- include('header') %>
 
-        Visitas: <%= vcount %>
+        <input type="hidden" name="myMark" value="<%= myMark %>">
+
+        <div class="gameplay d-flex justify-content-center mt-5">
+
+            <%- include('board') %>
+
+        </div>
     </div>
 
     <%- include('scripts') %>
+    <script src="/dist/gameplay.js"></script>
 </body>
 
 </html>

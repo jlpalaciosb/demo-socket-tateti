@@ -3,6 +3,8 @@ const path = require('path');
 const webRoutes = require('./routes/web');
 const cookieParser = require('cookie-parser');
 const { mwSetUser } = require('./routes/middleware');
+const http = require('http');
+const initSocket = require('./socket');
 
 // crear aplicacion node express
 const app = express();
@@ -22,6 +24,10 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use(mwSetUser);
 app.use(webRoutes);
 
+const server = http.createServer(app);
+initSocket(server);
+
 // iniciar servidor web
-app.listen(app.get('port'));
-console.log('app on port ' + app.get('port'));
+server.listen(app.get('port'), () => {
+    console.log('app on port ' + app.get('port'));
+});
