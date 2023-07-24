@@ -14,11 +14,23 @@
     <div class="container">
         <%- include('header') %>
 
-        <input type="hidden" name="myMark" value="<%= myMark %>">
+        <div class="gameplay mt-4">
 
-        <div class="gameplay d-flex justify-content-center mt-5">
-
-            <%- include('board') %>
+            <p class="mb-0 text-center">
+                jugador o: <span id="playerO"> <%= game.playerO %> </span>
+                <% if (username == game.playerO) { %>
+                    (tú)
+                <% } %>
+            </p>
+            <div class="d-flex justify-content-center">
+                <%- include('board') %>
+            </div>
+            <p class="mb-0 text-center">
+                jugador x: <span id="playerX"> <%= game.playerX %> </span>
+                <% if (username == game.playerX) { %>
+                    (tú)
+                <% } %>
+            </p>
 
         </div>
     </div>

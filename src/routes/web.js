@@ -19,8 +19,7 @@ router.get('/play/:gameId', async (req, res) => {
     } else {
         res.render('gameplay', {
             username: req.user.username,
-            myMark: game.playerX == req.user.username ? 'X'
-                : (game.playerO == req.user.username ? 'O' : ''),
+            game,
         });
     }
 });
