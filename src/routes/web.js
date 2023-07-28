@@ -1,6 +1,6 @@
 const express = require('express');
 const { getUserVisitCount } = require('../services/UserService');
-const { findGame } = require('../services/GameService');
+const { findGame, getJugadas } = require('../services/GameService');
 
 const router = express.Router()
 
@@ -17,9 +17,11 @@ router.get('/play/:gameId', async (req, res) => {
     if (!game) {
         res.send('partida no encontrada');
     } else {
+        const jugadas = await getJugadas(req.params.gameId);
         res.render('gameplay', {
             username: req.user.username,
             game,
+            jugadas,
         });
     }
 });

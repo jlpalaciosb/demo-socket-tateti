@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Demo WS - Play</title>
+    <title>Demo Socket Tateti - Juego</title>
 
-    <%- include('estilos') %>
-    <link rel="stylesheet" href="/dist/gameplay.css">
+    <%- include('../parte/estilos') %>
+    <link rel="stylesheet" href="/app/gameplay/index.css">
 </head>
 
 <body data-bs-theme="dark">
     <div class="container">
-        <%- include('header') %>
+        <%- include('../parte/header') %>
 
         <div class="gameplay mt-4">
 
@@ -23,7 +23,7 @@
                 <% } %>
             </p>
             <div class="d-flex justify-content-center">
-                <%- include('board') %>
+                <%- include('./board') %>
             </div>
             <p class="mb-0 text-center">
                 jugador x: <span id="playerX"> <%= game.playerX %> </span>
@@ -35,8 +35,8 @@
         </div>
     </div>
 
-    <%- include('scripts') %>
-    <script src="/dist/gameplay.js"></script>
+    <%- include('../parte/scripts') %>
+    <script src="/app/gameplay/index.js"></script>
 </body>
 
 </html>

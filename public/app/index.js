@@ -1,4 +1,6 @@
-// index script frontend
+/**
+ * Script para incluir en todas las paginas
+ */
 
 function borrarCookie(nombre) {
     document.cookie = `${nombre}=; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;

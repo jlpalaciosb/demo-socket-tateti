@@ -1,5 +1,5 @@
 const db = require('../mongodb');
-const {getRedisClient} = require('../redisdb');
+const { getRedisClient } = require('../redisdb');
 
 /**
  * Encontrar partida por clave del room
@@ -13,55 +13,31 @@ async function findGame(roomId) {
     return game;
 }
 
-// /**
-//  * Encontrar usuario por clave de usuario
-//  * @param {String} sessionid clave del usuario
-//  * @returns {Object} instancia del usuario ó null
-//  */
-// async function findUserBySession(sessionid) {
-//     const sessions = db.collection('sessions');
-//     const query = { sessionid };
-//     const session = await sessions.findOne(query);
-//     if (session) {
-//         const user = await findUser(session.username);
-//         return user;
-//     } else {
-//         return null;
-//     }
-// }
+/**
+ * @param {String} roomId
+ * @returns {Array} jugadas
+ */
+async function getJugadas(roomId) {
+    const redisClient = await getRedisClient();
+    const jugadas = JSON.parse(await redisClient.get(`jugadas:${roomId}`) || '[]');
+    return jugadas;
+}
 
-// /**
-//  * @param {Object} nuevo usuario
-//  * @returns {Boolean} true en caso de exito
-//  */
-// async function insertUser(user) {
-//     const users = db.collection('users');
-//     const insertResult = await users.insertOne(user);
-//     return true;
-// }
-
-// /**
-//  * @param {Object} session nuevo
-//  * @returns {Boolean} true en caso de exito
-//  */
-// async function insertSession(session) {
-//     const sessions = db.collection('sessions');
-//     const insertResult = await sessions.insertOne(session);
-//     return true;
-// }
-
-// /**
-//  * test redis db
-//  * @param {String} username
-//  * @returns {Number} cantidad de visitas
-//  */
-// async function getUserVisitCount(username) {
-//     const redisClient = await getRedisClient();
-//     const c = await redisClient.get(`vc:${username}`) || 1;
-//     await redisClient.set(`vc:${username}`, Number(c) + 1);
-//     return c;
-// }
+/**
+ * @param {String} roomId
+ * @param {Object} jugada
+ * @returns {Array} jugadas
+ */
+async function pushJugada(roomId, jugada) {
+    const redisClient = await getRedisClient();
+    const jugadas = JSON.parse(await redisClient.get(`jugadas:${roomId}`) || '[]');
+    jugadas.push(jugada);
+    await redisClient.set(`jugadas:${roomId}`, JSON.stringify(jugadas));
+    return jugadas;
+}
 
 module.exports = {
     findGame,
+    getJugadas,
+    pushJugada,
 }
