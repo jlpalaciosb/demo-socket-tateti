@@ -1,5 +1,5 @@
 const { Server } = require('socket.io');
-const { findGame, pushJugada } = require('./services/GameService');
+const { findGame, pushJugada, checkGameFin, setGameFin } = require('./services/GameService');
 
 function initSocket(server) {
     const io = new Server(server);
@@ -49,6 +49,9 @@ function initSocket(server) {
                         mark: socket.game.playerX == socket.username ? 'X' : 'O',
                     }
                     const jugadas = await pushJugada(socket.roomId, jugada);
+                    if (checkGameFin(jugadas)) {
+                        setGameFin(socket.roomId, jugadas);
+                    }
                     socket.to(socket.roomId).emit("jugada", {
                         content,
                         mark: jugada.mark,

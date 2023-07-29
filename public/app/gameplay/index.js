@@ -87,7 +87,7 @@ function clickCell(x, y) {
                     addToast('info', 'Espera tu turno.');
                 }
             } else {
-                console.log('partida ya terminada');
+                addToast('info', 'Partida terminada.');
             }
         } else {
             console.log('celda ya marcada');
