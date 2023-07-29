@@ -1,5 +1,5 @@
 const express = require('express');
-const { getUserVisitCount } = require('../services/UserService');
+const { getUserVisitCount, deleteSession } = require('../services/UserService');
 const { findGame, getJugadas } = require('../services/GameService');
 
 const router = express.Router()
@@ -24,6 +24,14 @@ router.get('/play/:gameId', async (req, res) => {
             jugadas,
         });
     }
+});
+
+router.get('/logout', async (req, res) => {
+    const {sessionid} = req.cookies;
+    if (sessionid) {
+        deleteSession(sessionid);
+    }
+    res.redirect('/');
 });
 
 module.exports = router

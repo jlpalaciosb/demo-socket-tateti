@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Demo Socket Tateti - Juego</title>
 
-    <%- include('../parte/estilos') %>
+    <%- include('../parts/estilos') %>
     <link rel="stylesheet" href="/app/gameplay/index.css">
 </head>
 
 <body data-bs-theme="dark">
+    <%- include('../parts/header') %>
+    
     <div class="container">
-        <%- include('../parte/header') %>
 
         <div class="gameplay mt-4">
 
@@ -35,7 +36,7 @@
         </div>
     </div>
 
-    <%- include('../parte/scripts') %>
+    <%- include('../parts/scripts') %>
     <script src="/app/gameplay/index.js"></script>
 </body>
 

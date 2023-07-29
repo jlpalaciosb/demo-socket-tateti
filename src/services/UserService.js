@@ -80,6 +80,18 @@ async function findUserBySession(sessionid) {
 }
 
 /**
+ * Encontrar usuario por clave de usuario
+ * @param {String} sessionid clave del usuario
+ * @returns {Boolean}
+ */
+async function deleteSession(sessionid) {
+    const sessions = db.collection('sessions');
+    const query = { sessionid };
+    await sessions.deleteMany(query);
+    return true;
+}
+
+/**
  * @param {Object} nuevo usuario
  * @returns {Boolean} true en caso de exito
  */
@@ -118,4 +130,5 @@ module.exports = {
     insertUser,
     insertSession,
     getUserVisitCount,
+    deleteSession,
 }
