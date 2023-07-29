@@ -11,4 +11,4 @@ to do:
 - control de tiempo!
 notas:
 - crear room socket: id room = id partida
-- asumir que un jugador juega solo un juego a la vez?
+- asumir que un jugador juega solo un juego a la vez? no da igual

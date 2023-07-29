@@ -84,7 +84,11 @@ function clickCell(x, y) {
                     jugadas.push({ x, y, mark: myMark });
                     checkGameFin();
                 } else {
-                    addToast('info', 'Espera tu turno.');
+                    if (jugadas.length > 0) {
+                        addToast('info', 'Ya jugaste, espera tu turno.');
+                    } else {
+                        addToast('info', 'Espera tu turno.');
+                    }
                 }
             } else {
                 addToast('info', 'Partida terminada.');
