@@ -9,6 +9,7 @@ to do:
 - reconexion (sin recargar pagina)
 - continuar partida (recargando pagina url juego)
 - control de tiempo!
+- redis array
 notas:
 - crear room socket: id room = id partida
 - asumir que un jugador juega solo un juego a la vez? no da igual

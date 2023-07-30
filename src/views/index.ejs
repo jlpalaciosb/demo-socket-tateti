@@ -13,18 +13,11 @@
     <%- include('parts/header') %>
 
     <div class="container">
-        Bienvenido (<%= vcount %>)
-
-        <div>
-            <div class="text-center">
-                <button class="btn btn-primary btn-lg">
-                    <i class="bi-play"></i> Nueva Partida
-                </button>
-            </div>
-        </div>
+        <%- include('pairing/pairing') %>
     </div>
 
     <%- include('parts/scripts') %>
+    <script src="/app/pairing/index.js"></script>
 </body>
 
 </html>

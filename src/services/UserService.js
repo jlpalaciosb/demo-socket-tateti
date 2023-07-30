@@ -1,5 +1,5 @@
-const db = require('../mongodb');
-const {getRedisClient} = require('../redisdb');
+const db = require('../database/mongodb');
+const {getRedisClient} = require('../database/redisdb');
 
 // List of positive adjectives
 const adjectives = [

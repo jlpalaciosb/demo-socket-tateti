@@ -1,5 +1,5 @@
-const db = require('../mongodb');
-const { getRedisClient } = require('../redisdb');
+const db = require('../database/mongodb');
+const { getRedisClient } = require('../database/redisdb');
 
 const lineasGanadores = [
     [[1, 1], [2, 1], [3, 1]],
@@ -22,6 +22,36 @@ async function findGame(roomId) {
     const query = { roomId };
     const game = await games.findOne(query);
     return game;
+}
+
+/**
+ * @returns {String}
+ */
+function newRoomId() {
+    let cadena = '';
+    const caracteres = 'abcdefghijklmnopqrstuvwxyz';
+    for (let i = 0; i < 8; i++) {
+      const indiceAleatorio = Math.floor(Math.random() * caracteres.length);
+      cadena += caracteres.charAt(indiceAleatorio);
+    }
+    return cadena;
+}
+
+/**
+ * Engendra una nueva partida
+ * @param {String} playerX clave del room
+ * @param {String} playerO clave del room
+ * @returns {Object} instancia de la nueva partida
+ */
+async function newGame(playerX, playerO) {
+    const games = db.collection('games');
+    const newGame = {
+        roomId: newRoomId(),
+        playerX,
+        playerO,
+    };
+    await games.insertOne(newGame);
+    return newGame;
 }
 
 /**
@@ -118,6 +148,7 @@ function checkGameFin(jugadas) {
 
 module.exports = {
     findGame,
+    newGame,
     getJugadas,
     pushJugada,
     setGameFin,

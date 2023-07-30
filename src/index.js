@@ -4,7 +4,7 @@ const webRoutes = require('./routes/web');
 const cookieParser = require('cookie-parser');
 const { mwSetUser } = require('./routes/middleware');
 const http = require('http');
-const initSocket = require('./socket');
+const initSocket = require('./routes/socket');
 
 // crear aplicacion node express
 const app = express();

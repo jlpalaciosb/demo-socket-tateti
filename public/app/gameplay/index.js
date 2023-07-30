@@ -33,8 +33,11 @@ function getRoomId() {
 }
 
 var socket = io('', { autoConnect: false });
-socket.auth = getUser();
-socket.auth.roomId = getRoomId();
+socket.auth = {
+    tipoSocket: 'gameplay',
+    username: getUser().username,
+    roomId: getRoomId(),
+}
 socket.connect();
 
 socket.onAny((event, ...args) => {
