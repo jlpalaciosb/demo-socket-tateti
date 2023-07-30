@@ -123,7 +123,7 @@ function checkGameFin() {
         }
         lineaWin.forEach(celda => {
             el = document.getElementById(`cell-${celda[0]}-${celda[1]}`);
-            el.classList.add('bg-success');
+            el.classList.add('cell-win');
         });
     }
     if (markWin || jugadas.length == 9) {
@@ -137,7 +137,14 @@ function checkGameFin() {
 function markCell(x, y, mark) {
     const el1 = document.getElementById(`cell-${x}-${y}`);
     const el2 = el1.querySelector('span');
-    el2.textContent = mark;
+    if (mark == 'X') {
+        el2.innerHTML = '<i class="bi-x-lg"></i>'
+    } else if (mark == 'O') {
+        el2.innerHTML = '<i class="bi-circle"></i>'
+    } else {
+        el2.innerHTML = '';
+    }
+    el2.classList.add('cell-mark-1');
 }
 
 socket.on('jugada', (jugada) => {

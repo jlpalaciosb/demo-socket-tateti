@@ -1,10 +1,36 @@
-
 .cell {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     cursor: pointer;
+    background-color: transparent;
 }
 
 .cell * {
     cursor: pointer;
+}
+
+@keyframes aparicionMark {
+    from {font-size: 0%;}
+    to {font-size: 200%;}
+}
+
+.cell-mark-0 {
+    font-size: 0%;
+}
+
+.cell-mark-1 {
+    font-size: 200%;
+    animation-name: aparicionMark;
+    animation-duration: 0.5s;
+}
+
+@keyframes aparicionWin {
+    from {background-color: transparent;}
+    to {background-color: var(--bs-success);}
+}
+
+.cell-win {
+    background-color: var(--bs-success);
+    animation-name: aparicionWin;
+    animation-duration: 0.5s;
 }

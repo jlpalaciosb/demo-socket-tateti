@@ -15,24 +15,42 @@
     
     <div class="container">
 
-        <div class="gameplay mt-4">
-
-            <p class="mb-0 text-center">
-                jugador o: <span id="playerO"> <%= game.playerO %> </span>
-                <% if (username == game.playerO) { %>
-                    (tú)
-                <% } %>
-            </p>
-            <div class="d-flex justify-content-center">
-                <%- include('./board') %>
+        <div class="gameplay row align-items-center">
+            <div class="col-12 col-lg-3 my-3">
+                <div class="text-center">
+                    <div class="display-2">
+                        <i class="bi-x-lg"></i>
+                    </div>
+                    <span class="player-label">
+                        <% if (username == game.playerX) { %>
+                            Tú: 
+                        <% } else if (username == game.playerO) { %>
+                            Oponente: 
+                        <% } %>
+                        <span id="playerX"><%= game.playerX %></span>
+                    </span>
+                </div>
             </div>
-            <p class="mb-0 text-center">
-                jugador x: <span id="playerX"> <%= game.playerX %> </span>
-                <% if (username == game.playerX) { %>
-                    (tú)
-                <% } %>
-            </p>
-
+            <div class="col-12 col-lg-6 my-3">
+                <div class="d-flex justify-content-center">
+                    <%- include('./board') %>
+                </div>
+            </div>
+            <div class="col-12 col-lg-3 my-3">
+                <div class="text-center">
+                    <div class="display-2">
+                        <i class="bi-circle"></i>
+                    </div>
+                    <span class="player-label">
+                        <% if (username == game.playerO) { %>
+                            Tú: 
+                        <% } else if (username == game.playerX) { %>
+                            Oponente: 
+                        <% } %>
+                        <span id="playerO"><%= game.playerO %></span>
+                    </span>
+                </div>
+            </div>
         </div>
     </div>
 
