@@ -34,3 +34,13 @@
     animation-name: aparicionWin;
     animation-duration: 0.5s;
 }
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+  
+.blinking {
+    animation: blink 1s infinite;
+}

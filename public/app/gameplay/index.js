@@ -10,7 +10,23 @@ const lineasGanadores = [
     [[3, 1], [2, 2], [1, 3]],
 ];
 
-let gameFin = false;
+var appGameplay = new Vue({
+    el: '#appGameplay',
+    data: {
+        jugadas: JSON.parse(
+            document.getElementById('ini-jugadas').getAttribute('data-jugadas')
+        ),
+        gameFin: false,
+    },
+    computed: {
+        isTurnoX: function () {
+            return !this.gameFin && this.jugadas.length % 2 == 0;
+        },
+        isTurnoO: function () {
+            return !this.gameFin && this.jugadas.length % 2 == 1;
+        },
+    }
+});
 
 function getRoomId() {
     return location.pathname.split('/').toReversed()[0];
@@ -24,14 +40,6 @@ socket.connect();
 socket.onAny((event, ...args) => {
     console.log(event, args);
 });
-
-/**
- * Lista de jugadas
- * @type {Array}
- */
-var jugadas = JSON.parse(
-    document.getElementById('ini-jugadas').getAttribute('data-jugadas')
-);
 
 function getPlayerX() {
     return document.getElementById('playerX').textContent.trim();
@@ -53,15 +61,15 @@ function getMyMark() {
 
 // returns: 'X' | 'O' | ''
 function getCellMark(x, y) {
-    let j = jugadas.filter(jug => jug.x == x && jug.y == y);
+    let j = appGameplay.jugadas.filter(jug => jug.x == x && jug.y == y);
     if (j[0]) return j[0].mark;
     else return '';
 }
 
 function isMyTurn() {
-    if (jugadas.length % 2 == 0 && getMyMark() == 'X') {
+    if (appGameplay.jugadas.length % 2 == 0 && getMyMark() == 'X') {
         return true;
-    } else if (jugadas.length % 2 == 1 && getMyMark() == 'O') {
+    } else if (appGameplay.jugadas.length % 2 == 1 && getMyMark() == 'O') {
         return true;
     } else {
         return false;
@@ -74,17 +82,17 @@ function clickCell(x, y) {
     const cellMark = getCellMark(x, y);
     if (myMark) {
         if (cellMark === '') {
-            if (!gameFin) {
+            if (!appGameplay.gameFin) {
                 if (isMyTurn()) {
                     socket.emit("jugada", {
                         content: { x, y },
                         to: getRoomId(),
                     });
                     markCell(x, y, myMark);
-                    jugadas.push({ x, y, mark: myMark });
+                    appGameplay.jugadas = [...appGameplay.jugadas, { x, y, mark: myMark }];
                     checkGameFin();
                 } else {
-                    if (jugadas.length > 0) {
+                    if (appGameplay.jugadas.length > 0) {
                         addToast('info', 'Ya jugaste, espera tu turno.');
                     } else {
                         addToast('info', 'Espera tu turno.');
@@ -126,9 +134,9 @@ function checkGameFin() {
             el.classList.add('cell-win');
         });
     }
-    if (markWin || jugadas.length == 9) {
-        gameFin = true;
-        if (!markWin && jugadas.length == 9) {
+    if (markWin || appGameplay.jugadas.length == 9) {
+        appGameplay.gameFin = true;
+        if (!markWin && appGameplay.jugadas.length == 9) {
             addToast('info', 'Partida empatada.');
         }
     }
@@ -150,15 +158,15 @@ function markCell(x, y, mark) {
 socket.on('jugada', (jugada) => {
     console.log('jugada', jugada);
     markCell(jugada.content.x, jugada.content.y, jugada.mark);
-    jugadas.push({
+    appGameplay.jugadas = [...appGameplay.jugadas, {
         x: jugada.content.x,
         y: jugada.content.y,
         mark: jugada.mark
-    });
+    }];
     checkGameFin();
 });
 
-jugadas.forEach(jugada => {
+appGameplay.jugadas.forEach(jugada => {
     markCell(jugada.x, jugada.y, jugada.mark);
 });
 checkGameFin();

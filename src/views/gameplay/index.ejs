@@ -14,47 +14,63 @@
     <%- include('../parts/header') %>
     
     <div class="container">
-
-        <div class="gameplay row align-items-center">
-            <div class="col-12 col-lg-3 my-3">
+        <div id="appGameplay" class="gameplay row align-items-center">
+            <div class="col-12 col-lg-4 my-3">
                 <div class="text-center">
                     <div class="display-2">
                         <i class="bi-x-lg"></i>
                     </div>
-                    <span class="player-label">
-                        <% if (username == game.playerX) { %>
-                            Tú: 
-                        <% } else if (username == game.playerO) { %>
-                            Oponente: 
-                        <% } %>
-                        <span id="playerX"><%= game.playerX %></span>
-                    </span>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <span class="me-2 opacity-0" style="font-size: 75%;"> <!-- placeholder -->
+                            <i class="bi-circle-fill"></i>
+                        </span>
+                        <span class="player-label">
+                            <% if (username == game.playerX) { %>
+                                Tú:
+                            <% } else if (username == game.playerO) { %>
+                                Oponente: 
+                            <% } %>
+                            <span id="playerX"><%= game.playerX %></span>
+                        </span>
+                        <span class="text-primary ms-2 opacity-0" style="font-size: 75%;" v-bind:class="{ 'opacity-100': isTurnoX }">
+                            <i class="bi-circle-fill"  v-bind:class="{ 'blinking': isTurnoX, 'opacity-0': !isTurnoX }"></i>
+                        </span>
+                    </div>
                 </div>
             </div>
-            <div class="col-12 col-lg-6 my-3">
+            <div class="col-12 col-lg-4 my-3">
                 <div class="d-flex justify-content-center">
                     <%- include('./board') %>
                 </div>
             </div>
-            <div class="col-12 col-lg-3 my-3">
+            <div class="col-12 col-lg-4 my-3">
                 <div class="text-center">
                     <div class="display-2">
                         <i class="bi-circle"></i>
                     </div>
-                    <span class="player-label">
-                        <% if (username == game.playerO) { %>
-                            Tú: 
-                        <% } else if (username == game.playerX) { %>
-                            Oponente: 
-                        <% } %>
-                        <span id="playerO"><%= game.playerO %></span>
-                    </span>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <span class="me-2 opacity-0" style="font-size: 75%;"> <!-- placeholder -->
+                            <i class="bi-circle-fill"></i>
+                        </span>
+                        <span class="player-label">
+                            <% if (username == game.playerO) { %>
+                                Tú: 
+                            <% } else if (username == game.playerX) { %>
+                                Oponente: 
+                            <% } %>
+                            <span id="playerO"><%= game.playerO %></span>
+                        </span>
+                        <span class="text-primary ms-2 opacity-0" style="font-size: 75%;" v-bind:class="{ 'opacity-100': isTurnoO }">
+                            <i class="bi-circle-fill" v-bind:class="{'blinking': isTurnoO, 'opacity-0': !isTurnoO }"></i>
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <%- include('../parts/scripts') %>
+    <script src="/dist/vue/vue.min.js"></script>
     <script src="/app/gameplay/index.js"></script>
 </body>
 
