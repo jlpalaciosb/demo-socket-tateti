@@ -5,7 +5,7 @@ const { getRedisClient } = require('../database/redisdb');
  */
 async function getLobby() {
     const redisClient = await getRedisClient();
-    const lobby = JSON.parse(await redisClient.get(`lobby`) || '[]');
+    const lobby = await redisClient.lRange('lLobby', 0, -1);
     return lobby;
 }
 
@@ -15,10 +15,9 @@ async function getLobby() {
  */
 async function pushToLobby(username) {
     const redisClient = await getRedisClient();
-    let lobby = JSON.parse(await redisClient.get(`lobby`) || '[]');
+    let lobby = await redisClient.lRange('lLobby', 0, -1);
     if (!lobby.includes(username)) {
-        lobby = [...lobby, username];
-        await redisClient.set(`lobby`, JSON.stringify(lobby));
+        await redisClient.rPush('lLobby', username);
     }
     return lobby;
 }
@@ -28,11 +27,12 @@ async function pushToLobby(username) {
  */
 async function popFromLobby() {
     const redisClient = await getRedisClient();
-    let lobby = JSON.parse(await redisClient.get(`lobby`) || '[]');
-    if (lobby.length >= 2) {
-        let players = lobby.slice(0,2);
-        lobby = lobby.slice(2);
-        await redisClient.set(`lobby`, JSON.stringify(lobby));
+    let lobbyLen = await redisClient.lLen('lLobby');
+    if (lobbyLen >= 2) {
+        let players = [
+            await redisClient.lPop('lLobby'),
+            await redisClient.lPop('lLobby'),
+        ];
         if (Math.random() < 0.5) {
             return {
                 playerX: players[0],
