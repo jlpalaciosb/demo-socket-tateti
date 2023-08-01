@@ -83,35 +83,44 @@ async function getJugadas(roomId) {
         return game.jugadas;
     } else {
         const redisClient = await getRedisClient();
-        const jugadas = JSON.parse(await redisClient.get(`jugadas:${roomId}`) || '[]');
-        return jugadas;
+        const jugadasRet = await redisClient.lRange(`jugadas:${roomId}`, 0, -1);
+        return jugadasRet.map(j => {
+            const [x, y, mark] = j.split(',');
+            return {x, y, mark};
+        });
     }
 }
 
 /**
  * @param {String} roomId
- * @param {Object} jugada
- * @returns {Array} jugadas
+ * @param {Object} objJugadaPush { x, y, mark }
+ * @returns {Array} jugadas [{ x, y, mark }]
  */
-async function pushJugada(roomId, jugada) {
+async function pushJugada(roomId, objJugadaPush) {
     const redisClient = await getRedisClient();
-    const jugadasOri = JSON.parse(await redisClient.get(`jugadas:${roomId}`) || '[]');
-    const jugadasNew = [...jugadasOri, jugada];
+    const jugadasOri = await redisClient.lRange(`jugadas:${roomId}`, 0, -1);
+    const strJugadaPush = `${objJugadaPush.x},${objJugadaPush.y},${objJugadaPush.mark}`;
+    const jugadasNew = [...jugadasOri, strJugadaPush];
+    let jugadasRet = [];
     if (isValidJugadas(jugadasNew)) {
-        await redisClient.set(`jugadas:${roomId}`, JSON.stringify(jugadasNew));
-        return jugadasNew;
+        await redisClient.rPush(`jugadas:${roomId}`, strJugadaPush);
+        jugadasRet = jugadasNew;
     } else {
-        return jugadasOri;
+        jugadasRet = jugadasOri;
     }
+    return jugadasRet.map(j => {
+        const [x, y, mark] = j.split(',');
+        return {x, y, mark};
+    });
 }
 
 /**
- * @param {Array} jugadas
+ * @param {Array} jugadas ['x,y,mark']
  * @returns {Boolean} 
  */
 function isValidJugadas(jugadas) {
-    let cntX = jugadas.filter(j => j.mark == 'X').length;
-    let cntO = jugadas.filter(j => j.mark == 'O').length;
+    let cntX = jugadas.filter(j => j.includes('X')).length;
+    let cntO = jugadas.filter(j => j.includes('O')).length;
     if (cntO + cntX > 9) {
         return false
     } else if (cntO > cntX) {
