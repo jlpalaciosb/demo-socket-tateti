@@ -1,48 +1,48 @@
-## Bienvenidos a Demo Socket Tateti!
+## ¡Bienvenido a Demo Socket Tateti!
 
-Esta es una aplicación web construida con sencillez utilizando NodeJS, EJS, Socket.io, MongoDB y Redis.
+Esta es una aplicación web creada utilizando NodeJS, EJS, Socket.io, MongoDB y Redis.
 
 ## Cómo empezar con Docker Compose
 
-Si te gustan las cosas sencillas, Docker Compose es tu aliado. Solo tienes que hacer lo siguiente:
+Si desea hacerlo sencillo, Docker Compose es su aliado. Solo tiene que hacer lo siguiente:
 
 ```
 docker compose up
 ```
 
-¡Listo! Tu aplicación estará lista y funcionando en un abrir y cerrar de ojos. Visita http://localhost:8880 en tu navegador.
+¡Listo! Su aplicación ya estará lista y funcionando. Visite http://localhost:8880 con su navegador.
 
-## Si prefieres hacerlo sin Docker
+## Si prefiere hacerlo sin Docker
 
-Si eres un aventurero y prefieres hacer las cosas a tu manera, no te preocupes, también tenemos instrucciones para ti. Solo asegúrate de tener lo siguiente instalado en tu máquina:
+Si prefiere hacerlo a su manera, no se preocupe, también tenemos instrucciones para usted. Solo asegúrese de tener lo siguiente instalado en su máquina:
 
-- MongoDB, porque a veces necesitamos un lugar para guardar cosas.
-- Redis, para añadir un toque de magia.
-- NodeJS, porque es el motor detrás de todo.
+- MongoDB, para el almacenamiento principal de datos.
+- Redis, para mantener datos accesibles a mayor velocidad.
+- NodeJS, porque es el motor de la aplicación.
 
-Una vez que tengas todo eso listo, sigue estos pasos:
+Una vez que tenga todo eso listo, siga estos pasos:
 
-1. Crea tu archivo .env a partir del ejemplo:
+1. Cree su archivo .env a partir del ejemplo:
 
 ```
 cp .env.example .env
 ```
 
-2. Instala las dependencias:
+2. Instale las dependencias:
 
 ```
 npm install
 ```
 
-3. Inicia la aplicación:
+3. Inicie la aplicación:
 
 ```
 npm run dev
 ```
 
-¡Y eso es todo! Tu aplicación estará en funcionamiento, lista para que disfrutes de una partida de Tateti en tiempo real con un amigo.
+¡Eso es todo! Su aplicación estará en funcionamiento, lista para iniciar partidas de Tateti y jugar en tiempo real con un amigo.
 
-¿Tienes preguntas o encuentras algún problema? ¡No dudes en ponerte en contacto conmigo! ¡Diviértete explorando y jugando! 🎉
+¿Tiene preguntas o encuentra algún problema? ¡No dude en ponerse en contacto conmigo!
 
 ## Notas
 
