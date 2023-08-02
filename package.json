@@ -4,6 +4,7 @@
   "description": "app demo de websocket donde se juega tateti multijugador online",
   "main": "src/index.js",
   "scripts": {
+    "start": "node src/index.js",
     "test": "echo \"no test\" && exit 1",
     "dev": "nodemon src/index.js"
   },
@@ -19,6 +20,7 @@
     "@popperjs/core": "^2.11.8",
     "axios": "^1.4.0",
     "cookie-parser": "^1.4.6",
+    "dotenv": "^16.3.1",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "mongodb": "^5.7.0",

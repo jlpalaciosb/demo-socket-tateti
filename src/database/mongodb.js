@@ -1,7 +1,6 @@
 const {MongoClient} = require('mongodb');
 
-const dburi = "mongodb://127.0.0.1:27017/";
-const client = new MongoClient(dburi);
-const database = client.db('tatetidb');
+const client = new MongoClient(process.env.MONGODB_URI);
+const database = client.db(process.env.MONGODB_NAME);
 
 module.exports = database

@@ -1,4 +1,5 @@
 const express = require('express');
+const dotenv = require('dotenv').config();
 const path = require('path');
 const webRoutes = require('./routes/web');
 const cookieParser = require('cookie-parser');
@@ -10,7 +11,7 @@ const initSocket = require('./routes/socket');
 const app = express();
 
 // configuraciones
-app.set('port', 8080);
+app.set('port', process.env.PORT);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.set('appname', 'app demo ws');

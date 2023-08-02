@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  # Mongodb service
+  bd_mongo:
+    image: mongo:latest
+    restart: always
+    volumes:
+      - mongo_data:/data/db
+
+  # Redis service
+  bd_redis:
+    image: 'redis:alpine'
+    restart: always
+
+  # Node api service
+  app_node:
+    build: .
+    ports:
+      # local->container
+      - 8880:3000
+    environment:
+      PORT: 3000
+      MONGODB_URI: mongodb://bd_mongo:27017
+      MONGODB_NAME: tatetidb
+      REDIS_URL: redis://bd_redis:6379
+    depends_on: 
+      - bd_mongo
+      - bd_redis
+
+volumes:
+  mongo_data: {}
