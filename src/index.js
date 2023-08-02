@@ -17,9 +17,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('appname', 'app demo ws');
 
 // middlewares y rutas
-// app.use((req, res, next) => {
-//     res.send('hello world!')
-// })
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(mwSetUser);
