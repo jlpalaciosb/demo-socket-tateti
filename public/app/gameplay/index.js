@@ -176,13 +176,15 @@ function markCell(x, y, mark) {
     const el1 = document.getElementById(`cell-${x}-${y}`);
     const el2 = el1.querySelector('span');
     if (mark == 'X') {
-        el2.innerHTML = '<i class="bi-x-lg"></i>'
+        el2.innerHTML = '<i class="bi-x-lg"></i>';
+        el2.classList.add('cell-mark-1');
     } else if (mark == 'O') {
-        el2.innerHTML = '<i class="bi-circle"></i>'
+        el2.innerHTML = '<i class="bi-circle"></i>';
+        el2.classList.add('cell-mark-1');
     } else {
         el2.innerHTML = '';
+        el2.classList.remove('cell-mark-1');
     }
-    el2.classList.add('cell-mark-1');
 }
 
 socket.on('jugada', (jugada) => {
