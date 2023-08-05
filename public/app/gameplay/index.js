@@ -198,7 +198,13 @@ socket.on('jugada', (jugada) => {
 
 appGameplay.marcarJugadas();
 
+var cntConnect = 0;
 socket.on("connect", () => {
-    console.log('socket conectado o reconectado');
-    appGameplay.getJugadas();
+    cntConnect++;
+    if (cntConnect == 1) {
+        console.log('socket conectado');
+    } else {
+        console.log('socket reconectado');
+        appGameplay.getJugadas(); // refresh gameplay
+    }
 });
