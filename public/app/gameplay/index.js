@@ -25,7 +25,32 @@ var appGameplay = new Vue({
         isTurnoO: function () {
             return !this.gameFin && this.jugadas.length % 2 == 1;
         },
-    }
+    },
+    methods: {
+        getJugadas: function() {
+            fetch('/api/games/'+getRoomId())
+                .then(response => response.status == 200
+                    ? response.json()
+                    : Promise.reject(response)
+                ).then(data => {
+                    this.jugadas = data.jugadas;
+                    this.marcarJugadas();
+                }).catch(error => {
+                    console.error(error);
+                });
+        },
+        marcarJugadas: function () {
+            for (let x = 1; x <= 3; x++) {
+                for (let y = 1; y <= 3; y++) {
+                    let mark = '';
+                    let jug = this.jugadas.filter(j => j.x == x && j.y == y);
+                    if (jug.length > 0) mark = jug[0].mark;
+                    markCell(x, y, mark);
+                }
+            }
+            checkGameFin();
+        },
+    },
 });
 
 function getRoomId() {
@@ -142,6 +167,8 @@ function checkGameFin() {
         if (!markWin && appGameplay.jugadas.length == 9) {
             addToast('info', 'Partida empatada.');
         }
+    } else {
+        appGameplay.gameFin = false;
     }
 }
 
@@ -169,7 +196,9 @@ socket.on('jugada', (jugada) => {
     checkGameFin();
 });
 
-appGameplay.jugadas.forEach(jugada => {
-    markCell(jugada.x, jugada.y, jugada.mark);
+appGameplay.marcarJugadas();
+
+socket.on("connect", () => {
+    console.log('socket conectado o reconectado');
+    appGameplay.getJugadas();
 });
-checkGameFin();

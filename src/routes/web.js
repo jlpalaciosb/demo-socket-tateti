@@ -26,6 +26,16 @@ router.get('/play/:gameId', async (req, res) => {
     }
 });
 
+router.get('/api/games/:id', async (req, res) => {
+    const game = await findGame(req.params.id);
+    if (!game) {
+        res.status(404).send('partida no encontrada');
+    } else {
+        const jugadas = await getJugadas(req.params.id);
+        res.json({...game, jugadas});
+    }
+});
+
 router.get('/logout', async (req, res) => {
     const {sessionid} = req.cookies;
     if (sessionid) {
