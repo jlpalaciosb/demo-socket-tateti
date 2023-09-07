@@ -1,6 +1,6 @@
 ## ¡Bienvenido a Demo Socket Tateti!
 
-Esta es una aplicación web creada utilizando NodeJS, EJS, Socket.io, MongoDB y Redis.
+Esta es una aplicación web creada utilizando NodeJS, EJS, Socket.io, MongoDB y Redis. La aplicación ofrece el juego online de tatetí entre usuarios conectados.
 
 ## Cómo empezar con Docker Compose
 
@@ -10,7 +10,7 @@ Si desea hacerlo sencillo, Docker Compose es su aliado. Solo tiene que hacer lo 
 docker compose up
 ```
 
-¡Listo! Su aplicación ya estará lista y funcionando. Visite http://localhost:8880 con su navegador.
+¡Listo! Su aplicación ya estará lista y funcionando para iniciar partidas de Tatetí y jugar en tiempo real con un amigo. Visite http://localhost:8880 con su navegador.
 
 ## Si prefiere hacerlo sin Docker
 
@@ -40,7 +40,7 @@ npm install
 npm run dev
 ```
 
-¡Eso es todo! Su aplicación estará en funcionamiento, lista para iniciar partidas de Tateti y jugar en tiempo real con un amigo.
+¡Eso es todo! Su aplicación estará en funcionamiento.
 
 ¿Tiene preguntas o encuentra algún problema? ¡No dude en ponerse en contacto conmigo!
 
