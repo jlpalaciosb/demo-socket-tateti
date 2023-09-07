@@ -44,8 +44,7 @@ npm run dev
 
 ¿Tiene preguntas o encuentra algún problema? ¡No dude en ponerse en contacto conmigo!
 
-## Notas
-
+<!--
 TODO:
 - socket.io
 - cache db: for online games
@@ -62,3 +61,4 @@ TODO:
 notas:
 - crear room socket: id room = id partida
 - asumir que un jugador juega solo un juego a la vez? no da igual
+-->
